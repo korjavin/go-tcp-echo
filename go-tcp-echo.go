@@ -11,7 +11,7 @@ func main() {
 	port := flag.Int("port", 3333, "Port to accept connections on.")
 	flag.Parse()
 
-	l, err := net.Listen("tcp", ":" + strconv.Itoa(*port))
+	l, err := net.Listen("tcp", ":"+strconv.Itoa(*port))
 	if err != nil {
 		log.Panicln(err)
 	}
@@ -40,7 +40,7 @@ func handleRequest(conn net.Conn) {
 			return
 		}
 		data := buf[:size]
-		log.Println("Read new data from connection", data)
-		conn.Write(data)
+		log.Printf("Read new data from connection %s", data)
+		conn.Write([]byte(`{"status":"ok"}`))
 	}
 }
